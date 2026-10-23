@@ -65,6 +65,11 @@ Run the Project
 3\. Run scripts/main.py to fetch, process, and upload weather data.
 
 
+## Data Output
+
+
+
+The processed weather data includes city, country, population, temperature, wind speed, Fahrenheit temperature, and temperature category.
 
 Security: Never upload service-account keys or other credentials to GitHub.
 
