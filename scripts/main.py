@@ -6,9 +6,7 @@ import pandas as pd
 import requests
 
 
-# --------------------------------------------------
-# PROJECT CONFIGURATION
-# --------------------------------------------------
+
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,9 +17,7 @@ OUTPUT_FILE = DATA_DIR / "current_weather_stats.csv"
 API_URL = "https://api.open-meteo.com/v1/forecast"
 
 
-# --------------------------------------------------
-# FETCH WEATHER DATA
-# --------------------------------------------------
+
 
 def fetch_weather(location):
     """Fetch current temperature and wind speed for a location."""
@@ -67,13 +63,10 @@ def fetch_weather(location):
             time.sleep(2)
 
 
-# --------------------------------------------------
-# MAIN DATA PIPELINE
-# --------------------------------------------------
 
 def main():
 
-    # Check that the population dataset exists.
+    
     if not POPULATION_FILE.exists():
         raise FileNotFoundError(
             f"Population file not found: {POPULATION_FILE}"
@@ -100,9 +93,7 @@ def main():
     print("Population dataset loaded successfully.")
     print("Population rows:", len(population_df))
 
-    # The assignment requires weather data for 50 capital cities.
-    # This selects the first 50 rows; verify that they are capitals
-    # before submitting the assignment.
+   
     locations = population_df.head(50).copy()
 
     weather_records = []
@@ -136,7 +127,6 @@ def main():
 
     weather_df = pd.DataFrame(weather_records)
 
-    # Merge population and weather data using city and country.
     merged_df = population_df.merge(
         weather_df,
         on=["City", "Country"],
@@ -146,7 +136,6 @@ def main():
 
     print("\nRows after merging:", len(merged_df))
 
-    # Clean required numeric fields.
     for column in [
         "Population",
         "Latitude",
@@ -205,9 +194,7 @@ def main():
     print("\nFirst 10 rows:")
     print(merged_df.head(10).to_string(index=False))
 
-    # --------------------------------------------------
-    # UPLOAD DATA TO BIGQUERY
-    # --------------------------------------------------
+    
 
     print("\nUploading data to BigQuery...")
 
